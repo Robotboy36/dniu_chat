@@ -1,0 +1,12 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "0.1.0",
+    "command": "git-bash",
+    "isShellCommand": true,
+    "windows": {
+        "command": "C:/Program Files (x86)/Git/git-bash.exe"
+    },
+    "args": [], //${file} "supervisor", "server/server"
+    "showOutput": "always"
+}

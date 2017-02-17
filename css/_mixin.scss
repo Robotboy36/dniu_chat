@@ -1,0 +1,128 @@
+
+$pre: '-webkit-', '-moz-', '-ms-', '';
+@mixin addPre( $styleName, $value ){
+    
+    @each $p in $pre {
+        #{$p}#{$styleName}: $value;  
+    }
+}
+
+
+
+@mixin transform( $exp ){    
+    @include addPre( transform, $exp );
+}
+
+
+@mixin transform-origin( $exp ){    
+    @include addPre( transform-origin, $exp );
+}
+
+@mixin transition( $exp ){
+    @include addPre( transition, $exp );
+}
+
+
+//文字阴影
+@mixin txtshadow($exp){
+    @include addPre( text-shadow, $exp );
+}
+
+
+//盒子阴影
+@mixin boxshadow($exp){
+    @include addPre( box-shadow, $exp );
+}
+
+//线性变化
+@mixin linear( $startPos, $colorStart, $colorEnd, $other: $colorEnd ){
+    background-image: linear-gradient($startPos, $colorStart, $colorEnd, $other);
+    background-image: -o-linear-gradient($startPos, $colorStart, $colorEnd, $other);
+    background-image: -moz-linear-gradient($startPos, $colorStart, $colorEnd, $other);
+    background-image: -webkit-linear-gradient($startPos, $colorStart, $colorEnd, $other);
+    background-image: -ms-linear-gradient($startPos, $colorStart, $colorEnd, $other);
+    background-image: -webkit-gradient( linear, $startPos, $colorStart, $colorEnd, $other  );
+}
+
+
+//文字描边
+@mixin textStroke($exp){
+    @include addPre( text-stroke, $exp );
+}
+
+
+// 使用动画
+@mixin animation($exp){
+    @include addPre( animation, $exp );
+}
+
+
+
+//定义动画
+@mixin keyframes( $name, $from, $to, $fromname:transform ){
+    @-webkit-keyframes #{$name} {
+        from{ #{$fromname}: $from;} to{ #{$fromname}:$to;} 
+    }
+    @-moz-keyframes #{$name} {
+        from{ #{$fromname}: $from;} to{ #{$fromname}:$to;} 
+    }
+    @-ms-keyframes #{$name} {
+        from{ #{$fromname}: $from;} to{ #{$fromname}:$to;} 
+    }
+    @keyframes #{$name} {
+        from{ #{$fromname}: $from;} to{ #{$fromname}:$to;} 
+    }
+}
+
+@mixin flexbox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin webkitbox() {
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -webkit-box-pack: center;
+
+}
+
+@mixin flex($values) {
+  -webkit-box-flex: $values;
+  -moz-box-flex:  $values;
+  -webkit-flex:  $values;
+  -ms-flex:  $values;
+  flex:  $values;
+}
+
+@mixin order($val) {
+  -webkit-box-ordinal-group: $val;  
+  -moz-box-ordinal-group: $val;     
+  -ms-flex-order: $val;     
+  -webkit-order: $val;  
+  order: $val;
+}
+
+
+@mixin boxsizing{
+    @include addPre( box-sizing, border-box );
+}
+
+
+@mixin txtmflow( $line: 3 ) { 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    word-break: break-all; 
+    display: -webkit-box; 
+    -webkit-box-orient: vertical; 
+    -webkit-line-clamp: $line;
+}
+
+@mixin select(){
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}

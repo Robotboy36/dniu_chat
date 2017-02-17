@@ -1,0 +1,875 @@
+
+@import "mixin";
+$tableWidth: 500px;
+
+
+
+html,body,
+.dniu-container{
+    height: 100%;
+}
+
+.zhuang,
+.die{
+    color: #F65C2D;
+    font-size: 12px;
+}
+
+.ready{
+    font-size: 12px;
+    color: #27A9E3;
+}
+
+.stepMoney{
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    -webkit-animation: moneyMove 3s linear forwards;
+    animation: moneyMove 3s linear forwards;
+}
+
+.stepMoney.add{
+    color: #0f0;
+}
+
+.stepMoney.odd{
+    color: #F00;
+}
+
+.absCenter{    
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.point{
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #222;
+    z-index: 10;
+}
+
+.filter{
+    @extend .absCenter;
+    position: fixed;    
+    z-index: 1;
+    background: url(../img/bg.jpg) no-repeat left top;
+    background-size: cover;
+    
+    -webkit-filter: blur(50px);
+    filter: blur(50px);
+}
+
+.container{
+    @include flexbox;
+    align-content: stretch;
+    z-index: 10;
+    height: 100%;
+}
+
+.chat-container{
+    @include boxshadow(0 0 200px #fff);
+    @include flex(1);
+    @include flexbox; 
+    position: relative;  
+    
+    .online-users{
+        @include boxsizing;
+        width: 120px;
+        background: rgba(0,0,0,0.4);
+        color: #fff;
+        overflow-y: auto;
+        position:relative;
+        padding-top: 44px;
+        
+        header,
+        footer{
+            height: 40px;
+            line-height: 40px;
+            padding-left: 5px;
+            border-bottom: 1px solid #ddd;   
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            font-size: 12px;
+        }
+        
+        footer{            
+            top: auto;
+            bottom: 0;
+            
+            label,
+            .switch{
+                float: left;    
+                margin-left: 10px;
+            }
+        }
+        
+        .user-item{
+            height: 25px;
+            line-height: 25px;
+            padding: 5px;
+            font-size: 12px;
+            overflow: hidden;
+            margin: 3px;
+            background: #fff;
+            color: #000;
+            border-radius: 3px;
+            -webkit-mask-image: linear-gradient(to right, #fff, #fff, 110px, transparent);
+        }
+        
+        img{
+            width: 25px;
+            height: 25px;
+            margin-right: 5px;
+            border-radius: 3px;
+            float: left;
+        }
+        
+        span{
+            width: 70px;
+            display: inline-block;
+            word-break: keep-all;
+        }
+    }
+    
+    .at-users{        
+        background: none;
+        position: absolute;
+                
+        img{
+            width: 20px;
+            height: 20px;
+        }
+        
+        .user-item{
+            height: 20px;
+            line-height: 20px;
+            padding: 1px 0;
+            border-radius: 0;
+            border: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+        }        
+    }
+    
+    .chat-main{
+        @include flex(1);
+        @include flexbox;    
+        flex-direction:column;
+    }
+    
+    .chat-content{
+        @include flex(1);
+        @include boxsizing;
+        
+        padding: 10px;
+//      border: 1px solid #fff;
+        background: rgba(0,0,0,0.2);
+        color: #fff;
+        overflow-y: auto;
+    }
+    
+    .system-msg{
+        margin: 10px;
+        font-size: 12px;
+        color: #aaa;
+        text-align: center;
+    }
+    
+    .chat-input-box{
+        position: relative;
+        height: 140px;
+//      border: 1px solid #fff;
+        background: rgba(255,255,255,0.4);
+    }
+    
+    .chat-input{
+        @include boxsizing;
+        
+        color: #000;
+        background: rgba(255,255,255,0.4);
+        outline: none;
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: none;
+        padding: 5px;
+        overflow-y: auto;
+    }
+    
+    button{
+        font-size: 14px;
+        color: #fff;
+        background: rgba(0,0,0,0.5);
+        position: absolute;
+        right: 5px;
+        bottom: 5px;
+        border: 1px solid #fff;
+        padding: 8px 22px;
+        cursor: pointer;
+    }
+    
+    .remind{
+        @extend .absCenter;
+        
+        width: 160px;
+        height: 30px;
+        line-height: 30px;
+        border-radius: 3px;
+        background: #fff;
+        color: #F65C2D;
+        text-align: center;
+        font-size: 14px;
+        display: none;
+    }
+}
+
+.chat{
+    @include flexbox;
+    
+    font-size: 14px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    position: relative;
+    
+    &>img{
+        float: left;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        margin-right: 10px;
+    }
+    
+    .info{
+        float: left;
+        @include flex(1);
+        
+        &>div{
+            text-overflow: ellipsis;
+            overflow: hidden;
+            font-size: 12px;
+        }
+    }
+    
+    time{
+        margin-left: 7px;
+    }
+    
+    p{
+        display: inline-block;
+        margin-top: 10px;
+        background: #E6EBF6;
+        position: relative;
+        border-radius: 5px;
+        color: #222;
+        word-wrap: break-word;    
+        word-break: break-all; 
+        padding: 8px;
+        text-align: left;
+                
+        &:after{
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: #E6EBF6;
+            position: absolute;
+            left: -2px;
+            top: 2px;
+            
+            @include transform(rotate(45deg));
+        }
+    }
+    
+    .info,
+    &>img{
+        max-width: 70%;
+    }
+    
+    
+    &.self{
+        justify-content:flex-end;
+        
+        &>img,
+        .info{
+            float: right;
+        }
+        
+        &>img{            
+            margin-left: 10px;
+            margin-right: 0;
+        }
+        
+        .info{
+            text-align: right;
+            
+            &>div{                
+                text-align: right;
+            }
+        }
+        
+        p{
+            &:after{
+                left: auto;
+                right: -2px;
+            }
+        }
+    }
+}
+
+
+/* 表情 */
+.chat-face{
+    height: 34px;
+    background: rgba(255,255,255,0.9);
+    
+    .face-item{
+        margin: 5px 8px 0 5px;
+        position: relative;
+        
+        i{
+            width: 24px;
+            height: 24px;
+            background: url(../img/face/000.gif) no-repeat center center;
+            display: inline-block;
+            cursor: pointer;
+        }
+        
+        ul{
+            width: 352px;
+            max-height: 273px;
+            position: absolute;
+            left: 0;
+            bottom: 42px;
+            background: #E6EBF6;
+            border: 1px solid #fff;
+            border-radius: 5px;
+            padding-bottom: 10px;
+            display: none;
+            
+            li{
+                width: 24px;
+                height: 24px;
+                float: left;
+                border-right: 1px solid #ddd;
+                border-bottom: 1px solid #ddd;
+                cursor: pointer;
+                padding: 1px;
+                
+                &:hover{
+                    background-color: #ddd;
+                }
+            }
+            
+            &:after{
+                content: '';
+                display: block;
+                height: 1px;
+                width: 100%;
+                clear: both;
+            }
+            
+            &:before{
+                content: '';
+                width: 10px;
+                height: 10px;
+                background: #E6EBF6;
+                position: absolute;
+                left: 2px;
+                bottom: -4px;
+                
+                @include transform(rotate(45deg));
+            }
+        }
+    }
+}
+
+
+
+
+.dniu-container{
+    @include flex(1.5);
+    position: relative;
+}
+
+
+.table,
+.players{    
+    @include select;
+    @extend .absCenter;
+    
+    height: $tableWidth * 0.64;
+    width: $tableWidth;
+    border-radius: $tableWidth * 0.64;
+    top: 100px;
+    bottom: auto;
+}
+
+.table{
+    background: rgba(255,255,255,0.4);
+    border: 1px solid #ddd;
+    z-index: 5;
+    
+    .puke-item{
+        width: 60px;
+        height: 80px;
+        display: none;
+        
+        @extend .absCenter;
+    }
+    
+    .clock{
+        @extend .absCenter;
+        
+        width: 100px;
+        height: 100px;
+        line-height: 110px;
+        text-align: center;
+        color: #222;
+        font-size: 20px;
+        font-weight: bold;
+        background: url(../img/clock.png) no-repeat center center;
+        background-size: contain;
+        display: none;        
+    }
+
+    .remind{
+        @extend .absCenter;
+        top: auto;
+        bottom: 30px;
+        color: #666;
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .game-tip{
+        display: none;
+    }
+}
+
+.btn-controll{
+    width: 300px;
+    height: 60px;
+    
+    @extend .absCenter;
+    text-align: center;
+    z-index: 7;
+    bottom: auto;
+    top: 200px;
+    
+    .btn{
+        @include transition(all 0.3s);
+        @include boxshadow(0 0 20px #444);
+        display: inline-block;
+        border: none;        
+        height: 60px;
+        width: 80px;
+        padding: 0;
+        text-align: center;
+        border-radius: 60px;
+        font-size: 12px;
+
+        &:active{
+            @include boxshadow(0 0 5px #444);  
+        }
+    }
+
+    .ready-btn{
+        margin-right: 30px;
+        background: #27A9E3;
+        color: #fff;
+    }
+
+    .exit-btn{
+        background: #ccc;
+        color: #666;
+    }
+}
+
+
+.players{    
+    z-index: 6;
+}
+
+// 玩家信息
+.player{
+    width: 140px;
+    height: 120px;
+    position: absolute;
+    color: #fff;
+    z-index: 6;
+    
+    &-info{        
+        img{
+            width: 34px;
+            height: 34px;
+            border-radius: 5px;
+            float: left;
+            margin-top: 2px;
+            margin-left: 2px;
+            background: #fafafa;
+        }
+        
+        &>div{
+            font-size: 12px;
+            float: left;
+            margin: 0 0 0 10px;
+        }
+        
+        p{
+            font-size: 12px;          
+            position: relative;
+        }
+        
+        .value-box{
+            display: none;
+        }
+
+        &:after{
+            content: '';
+            display: block;
+            width: 100%;
+            height: 0;
+            clear: both;
+            zoom: 1;
+        }
+    }
+    
+    &-pai{
+        position: relative;
+        margin-top: 10px;
+        left: -26px;
+        
+        .puke-item{            
+            .name{
+                font-size: 14px;
+                line-height: 14px;
+                height: 24px;
+                width: 12px;
+            }
+            
+            &:nth-child(2){
+                @include transform(translate(20px, 0));
+            }
+            &:nth-child(3){
+                @include transform(translate(40px, 0));
+            }
+            &:nth-child(4){
+                @include transform(translate(60px, 0));
+            }
+            &:nth-child(5){
+                @include transform(translate(80px, 0));
+            }
+        }     
+    }
+    
+    .result{
+        @extend .absCenter; 
+        
+        background: no-repeat center bottom 11px;
+        background-size: 72px auto;
+        line-height: 11;
+        font-size: 16px;      
+        text-align: center;
+        display: none;
+            
+        &.no{
+            background-image: url(../img/no-niu-bg.png);
+            display: block;
+        }
+        
+        &.yes{
+            background-image: url(../img/niu-bg.png);
+            display: block;
+        }
+    }
+}
+
+.cur-player{
+    @include transform(translate(-200px, 75px));
+    
+    width: 496px;
+    height: 200px;
+    
+    .player-info{        
+        img{
+            width: 50px;
+            height: 50px;
+            margin-top: 0;
+            margin-left: 0;
+        }
+        
+        .value-box{
+            display: block;
+        }
+    }
+    
+    .player-pai{
+        left: 10px;
+        
+        $pukeW: 80px;        
+        .puke-item{
+            height: 150px * $pukeW / 105px;
+            width: $pukeW;
+            cursor: pointer;
+                    
+            .name{   
+                font-size: 20px;
+                line-height: 20px;
+                height: 40px;
+                width: 20px; 
+            }
+            
+            &:nth-child(2){
+                @include transform(translate($pukeW + 5, 0));
+            }
+            &:nth-child(3){
+                @include transform(translate(($pukeW + 5)*2, 0));
+            }
+            &:nth-child(4){
+                @include transform(translate(($pukeW + 5)*3, 0));
+            }
+            &:nth-child(5){
+                @include transform(translate(($pukeW + 5)*4, 0));
+            }
+        }     
+    }
+    
+    .result{        
+        background-size: 160px auto;  
+        line-height: 12;
+        font-size: 24px;   
+        font-weight: bold;
+    }
+}
+
+
+.puke-item{
+    $pukeW: 40px;  
+    
+    @include boxshadow(0 0 2px #999);    
+    position: absolute;  
+    height: 150px * $pukeW / 105px;
+    width: $pukeW;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    background-color: #fff;
+    overflow: hidden;
+    
+    .background{
+        @include transition(all 1s);
+        @include transform(translate(0, 160px));        
+        @extend .absCenter;
+        
+        width: 100%;
+        height: 100%;    
+        background-color: #D6E5E5;
+        background-image: url(../img/hua.png);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 90% auto;
+    }
+    
+    .name{
+        font-size: 20px;
+        line-height: 20px;
+        text-align: center;
+        position: absolute;
+        left: 2px;
+        top: 2px;
+        height: 40px;
+        width: 20px;
+        background: no-repeat center bottom;
+        background-size: 70% auto;
+        display: block;
+    }
+    
+    .name-rotate{
+        @include transform(rotate(180deg));
+        
+        left: auto;
+        right: 2px;
+        top: auto;
+        bottom: 2px;
+    }
+    
+    &.hong .name{
+        background-image: url(../img/hong.png);
+    }
+    
+    &.fang .name{
+        background-image: url(../img/fang.png);
+    }
+    
+    &.hei .name{
+        background-image: url(../img/hei.png);
+    }
+    
+    &.mei .name{
+        background-image: url(../img/mei.png);
+    }
+    
+    
+    &.hong,
+    &.fang{
+        color: #fe0000;
+    }
+    
+    &.hei,
+    &.mei{
+        color: #222;
+    }
+}
+
+.normal{    
+    .background{            
+        @include transform(translate(0, 0));
+    }    
+    
+    .name{
+        display: none;
+    }
+}
+
+.selected{
+    margin-top: -15px;
+}
+
+
+$valurHeight: 32px;
+.value-box{
+    @include select;
+    
+    height: $valurHeight;
+    width: 320px;  
+    float: right;
+    margin-top: 7px;
+    
+    input,
+    button{
+        height: $valurHeight;
+        line-height: $valurHeight;
+        width: $valurHeight;
+        border: none;
+        background: #fff;
+        padding: 0;
+        text-align: center;    
+        float: left;
+        margin-right: 15px;
+        border-radius: $valurHeight;
+        
+        @include boxsizing;    
+    }
+    
+    button{
+        width: 80px;    
+        background: #ccc;
+        color: #666;
+    }
+    
+    .has-niu{
+        color: #fff;
+        background: #27A9E3;
+    }
+    
+    .no-niu{
+        margin: 0;
+    }
+}
+
+
+.loading{
+    @extend .absCenter;
+    z-index: 1000;
+    background: rgba(0,0,0,0.5);
+    
+    &:after{
+        content: '正在连接服务器...';
+        @extend .absCenter;
+        
+        font-size: 20px;
+        line-height: 100%;
+        width: 50%;
+        min-width: 260px;
+        padding-top: 80px;
+        text-align: center;
+        background: url(../img/loading.gif) no-repeat center center;
+        background-size: contain;
+        color: #fff;
+        border-radius: 5px;
+    }
+}
+
+
+.error-title{
+    text-align: center;
+    font-size: 60px;
+    height: 60px;
+    line-height: 60px;
+    
+    @extend .absCenter;
+}
+
+
+
+@media screen and (max-width: 768px){    
+    
+    .dniu-container{
+        display: none;
+    }
+    
+    .chat-container{
+        margin: 0;
+        
+        .online-users{
+            width: 80px;
+            
+            span{
+                width: 32px;
+            }
+        }
+    }
+    
+    .chat-face .face-item ul{
+        width: 278px;
+        overflow-y: auto;
+    }
+}
+
+
+
+@keyframes moneyMove{
+    0%{
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+    90%{
+        transform: translate(1, -90px);
+        opacity: 0;
+    }
+    100%{
+        transform: translate(0, -100px);
+        opacity: 0;
+    }
+}
+
+
+@-webkit-keyframes moneyMove{
+    0%{
+        -webkit-transform: translate(0, 0);
+        opacity: 1;
+    }
+    90%{
+        transform: translate(1, -90px);
+        opacity: 0;
+    }
+    100%{
+        -webkit-transform: translate(0, -100px);
+        opacity: 0;
+    }
+}

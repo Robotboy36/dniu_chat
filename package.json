@@ -1,0 +1,25 @@
+{
+  "name": "dniu_node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "mongodb": "^2.2.11",
+    "nodejs-websocket": "^1.7.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/Robotboy36/dniu.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/Robotboy36/dniu/issues"
+  },
+  "homepage": "https://gitlab.com/Robotboy36/dniu#README"
+}

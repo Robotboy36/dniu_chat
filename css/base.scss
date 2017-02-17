@@ -1,0 +1,610 @@
+
+@import 'mixin';
+
+$borderRadius: 0; 
+$border: 1px solid #ddd;
+$headHeight: 50px;
+
+::-webkit-scrollbar { width: 8px; background: #777; }
+::-webkit-scrollbar-button, 
+::-webkit-scrollbar-track, 
+::-webkit-resizer { display: none; }
+::-webkit-scrollbar-track-piece { /* 4 */ }
+::-webkit-scrollbar-thumb { background: #030200; border-left: 1px solid #777;}
+::-webkit-scrollbar-corner { /* 6 */ }
+
+@font-face{
+    font-family: 'pf';
+    src: url('../font/PingFangZ.ttf') format('truetype');
+}
+
+
+html,body,ul,ol,p,pre,
+h1,h2,h3,h4,h5,h6{
+    margin: 0;
+    padding: 0;
+}
+h1,h2,h3,h4,h5,h6,th{
+    font-weight: 400;
+}
+
+html{
+    overflow-x: hidden;
+    background: #666;
+}
+
+body{
+    font-size: 14px;
+    font-family: pf, "微软雅黑";
+}
+
+ul,ol{
+    list-style: none;
+}
+
+i,em{
+    font-style: normal;
+}
+    
+a{
+    text-decoration: none;
+}
+
+img,input,textarea,button,select{
+    outline: none;
+    font-family: helvetica,Arial;
+}
+
+
+.fleft{
+    float: left;
+}
+
+.fright{
+    float: right;
+}
+
+.txtLeft{
+    text-align: left;
+}
+
+.txtCenter{
+    text-align: center;
+}
+
+.upper{
+    text-transform: uppercase;
+}
+
+.txtflow{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.hide{
+    display: none !important;
+}
+
+
+
+/**
+ * 链接与按钮相关
+* **/
+$valurHeight: 32px;
+.btn{
+    height: $valurHeight;
+    line-height: $valurHeight;
+    border: $border;
+    border-radius: $valurHeight;
+    padding: 0 16px;
+    font-size: 14px;
+    cursor: pointer;
+    background: #fff no-repeat center center;
+    background-size: 22px;
+    
+    &:active{
+        background-color: #fafafa;
+    }
+}
+
+.btn.primary{
+    background: #27A9E3;
+    color: #fff;
+    border: none;
+}
+
+.btn.search,    
+.btn.add{
+    border: none;
+    border-left: $border;
+    width: 13%;
+    height: $headHeight;
+    line-height: $headHeight;        
+    padding: 0;
+    background-image: url(../img/search_big.png);
+}
+
+.btn.add{
+    background-image: url(../img/add.png);
+    border: $border;
+}
+
+.btn.upload{    
+    font-size: 14px;
+    background: #27A9E3;
+    color: #fff;
+    border: none;
+    margin-right: 20px;
+}
+
+
+//删除按钮
+.delete_x{
+    @include transition(transform 0.3s);  
+        
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    right: 5px;
+    top: 10px;
+    cursor: pointer;
+    
+    &:before,
+    &:after{
+        @include transform-origin(center center);   
+        
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        height:2px;
+        width: 24px;
+        margin: auto;
+        background-color: #ddd;   
+    }
+    
+    &:before{
+        @include transform(rotate(-45deg));  
+    }
+    
+    &:after{
+        @include transform(rotate(45deg));  
+    }
+    
+    &:hover{
+        @include transform(rotate(90deg));  
+        
+        &:before,
+        &:after{
+            background-color: #e65c5a !important;   
+        }
+    }
+}
+        
+.delete_x.min{
+    width: 20px;
+    height: 20px;
+    top: 5px;
+    
+    &:before,
+    &:after{
+        width: 16px;
+        height: 2px;
+    }
+}
+
+
+/**
+ * 文档结构相关    
+ * */
+.container{
+    position: relative;
+    margin: 0 auto;
+}
+
+
+.main-body{    
+    margin-top: 40px;
+    margin-bottom: 40px;
+        
+    &:after{
+        content: '';
+        clear: both;
+        width: 100%;
+        display: block;
+    }
+}
+
+
+
+/**
+ * 弹窗相关    
+ * */
+.dialog-container,
+.dialog-mask-layer{    
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 101;
+}
+
+.dialog-mask-layer{
+    pointer-events: none;
+}
+
+[data-important='1']{
+    .dialog-mask-layer{
+        background: rgba(0,0,0,0.3);
+    }
+}
+
+.dialog{
+    @include boxshadow(0 0 50px #aaa);
+    @include transform(translate(0, -15px));
+    @include transition(all 0.3s);
+    
+    opacity: 0;      
+    position: fixed;
+    z-index: 102;
+    width: 600px;
+    height: 360px;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+//  border: 1px solid #ddd/9;
+    background: #fff;
+    color: #333;
+    overflow: hidden;
+    border-radius: $borderRadius;
+    
+    &-header{
+        background: #27A9E3;
+        color: #fff;
+        padding-left: 15px;
+        padding-right: 15px;
+        
+        .delete_x:before,
+        .delete_x:after{
+            background: #fafafa;
+        }
+    }
+    
+    &-title{
+        font-size: 16px;
+        font-weight: 300;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+    
+    &-body{
+        padding: 40px 20px;
+        background: no-repeat 15px 30px;
+        background-size: 40px;
+    }
+    
+    &-footer{
+        background: #fafafa;
+        border-top: $border;
+        padding: 15px 15px 10px 15px;
+        text-align: right;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        
+        .btn{
+            margin-left: 20px;
+        }
+    }    
+    
+    /**
+     * 主题样式    
+     * */    
+    &-success{           
+        z-index: 103;
+        .dialog-header{
+            background: #27A9E3;
+            color: #fff;
+        } 
+
+        .dialog-body.success{
+            padding-left: 65px;
+            background-image: url("../img/success.png")
+        }
+    }
+    
+    &-warm{   
+        z-index: 104;       
+         
+        .dialog-header{
+            background: #f6ce41;
+        } 
+        
+        .dialog-body{
+            // color: #f6ce41;
+            color: #f65c2d;
+        }
+
+        .dialog-body.warm{
+            padding-left: 65px;
+            background-image: url("../img/warm.png")
+        }
+        
+        .dialog-footer{
+            .primary{
+                border: 1px solid #f6ce41;
+                color: #f6ce41;
+                background: #fff;
+            }
+        }
+    }
+    
+    &-error{          
+        z-index: 105;
+        
+        .dialog-header{
+            background: #f65c2d;
+
+            .delete_x{
+                &:hover{                    
+                    &:before,
+                    &:after{
+                        background-color: #fff !important;   
+                    }
+                }
+            }
+        } 
+            
+        .dialog-body{
+            color: #f65c2d;
+        }
+
+        .dialog-body.error{
+            padding-left: 65px;
+            background-image: url("../img/error.png")
+        }        
+        
+        .dialog-footer{
+            .primary{
+                border: 1px solid #f65c2d;
+                color: #f65c2d;
+                background: #fff;
+            }
+        }
+    }
+    
+    @media screen and (max-width: 768px){
+        max-width: 90%;
+    }
+}
+
+.dialog-show{    
+    .dialog{
+        @include transform(translate(0,0));    
+        opacity: 1;   
+    } 
+}
+
+
+
+/**
+ * 提示框    
+ * */
+
+.tip{
+    position: absolute;
+    z-index: 100;
+    background: #444;
+    padding: 0 15px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    color: #fff;
+    width: 200px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+
+/**
+ *  输入框相关    
+ * */
+.input-group{
+    display: block;
+    margin: 0 auto 15px auto;
+    padding: 10px 0;
+    line-height: 40px;
+        
+    .label,
+    label{
+        float: left;
+        width: 15%;
+        margin-right: 2%;
+        text-align: right;
+    }
+    
+    .input,
+    input,
+    textarea{
+        @include boxsizing;
+
+        width: 77%;
+        float: left;
+        border: $border;
+        height: 40px;
+        line-height: 40px;
+        padding: 0 5px;
+        border-radius: $borderRadius;
+        background: #fff;
+    }
+    
+    input[type='file']{
+        width: 0;
+        height: 0;
+        padding: 0;
+        border: none;
+        display: none;
+    }
+    
+    textarea{
+        height: 230px;
+        line-height: 24px;
+        padding-top: 10px;
+    }
+    
+    .path{
+        float: left;    
+        width: 60%;
+    }
+    
+    .required{
+        &:before{
+            content: '*';
+            color: #E65C5A;
+            font-size: 16px;
+            line-height: 1;
+        }
+    }
+
+    .input-code{
+        width: 34%;
+    }
+
+    .yzm-code{
+        border: none;
+        background: #fafafa;
+        text-align: center;
+        font-size: 24px;
+        letter-spacing: 5px;
+        font-style: italic;
+        margin-left: 36px;
+    }
+    
+    &:after{
+        content: '';
+        clear: both;
+        width: 100%;
+        display: block;
+    }
+}
+
+.input-group.label-block{
+    label,
+    input,
+    textarea{
+        width: 100%;
+        float: none;
+        display: block;
+        margin: 0;
+    }
+
+    label{
+        text-align: left;
+    }
+}
+    
+input[type='checkbox']{
+    width: 18px;
+    height: 18px;
+    margin: 0 10px 0 0;
+    padding: 0;
+    border: $border;
+    border-radius: 50%;
+    background: #fff;
+    float: left;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative;
+    
+    
+    &:before,
+    &:after{
+        @include transform-origin(center center);   
+        
+        content: '';
+        position: absolute;
+        height:2px;
+        width: 8px;
+        background-color: #fff;   
+    }
+    
+    &:before{
+        left: 7px;
+        top: 8px;
+        @include transform(rotate(-45deg));  
+    }
+    
+    &:after{
+        left: 3px;
+        top: 10px;
+        width: 6px;
+        @include transform(rotate(45deg));  
+    }
+    
+    &:checked{
+        background: #27A9E3;
+        border: none;
+        
+        &:before,
+        &:after{
+            background-color: #fff;
+        }
+    }
+}
+
+
+/* 开关 */
+$swichSize: 20px;
+.switch{
+    display: inline-block;
+    height: $swichSize;
+    line-height: $swichSize;
+    width: $swichSize * 2;
+    border: 1px solid #ddd;
+    background: #ddd;
+    border-radius: $swichSize;
+    position: relative;
+    overflow: hidden;
+    margin-top: 8px;
+    margin-left: 5px;
+    cursor: pointer;    
+    @include transition(all 0.3s 0.1s);
+    
+    &:before{
+        content: '关';
+        text-align: center;
+        font-size: 12px;
+        position:absolute;
+        left: 0;
+        top: 0;
+        height: $swichSize;
+        width: $swichSize;
+        border-radius: $swichSize;
+        background: #aaa;
+        color: #777;
+        
+        @include transition(all 0.3s);
+    }
+        
+    &.switch-open{
+        background: #27A9E3;
+        
+        &:before{
+            content: '开';
+            background: #fff;
+            left: $swichSize;
+            
+        }
+    }
+}

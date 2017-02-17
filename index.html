@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>吃饭睡觉打豆豆</title>
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" href="css/puke.css" />
+	</head>
+
+	<body>
+
+		<div class="container">
+			<div class="dniu-container">
+				<div class="table">
+					<div class="puke-item normal">
+						<div class="background"></div>
+					</div>
+					<div class="clock">10</div>
+					<div class="remind">底分：10<p>只比较点数,点数相同庄家赢</p></div>		
+					<div class="tip game-tip">游戏进行中...</div>
+				</div>
+				<div class="players"></div>
+				
+				<div class="btn-controll">
+					<button class="btn join-btn">进入游戏</button>
+					<button class="btn ready-btn hide">准备</button>
+					<button class="btn exit-btn hide">闪人</button>
+				</div>					
+			</div>
+
+			<div class="chat-container">
+				<nav id="online_users" class="online-users">
+					<header></header>
+					<section class="users-list"></section>
+					<footer>
+						<label>提醒: </label><div class="switch"></div>
+					</footer>
+				</nav>
+				<section class="chat-main">					
+					<div class="chat-content"></div>
+					<div class="chat-face">
+						<div class="face-item">
+							<i></i>
+							<ul class="face-item-panel"></ul>
+						</div>
+					</div>
+					<div class="chat-input-box">
+						<div id="chat_input" class="chat-input" placeholder="最多100字" contenteditable="true"></div>
+						<button>发送</button>
+						<i class="remind">发送内容不能为空</i>
+					</div>
+				</section>
+			</div>
+		</div>
+
+		<div class="filter"></div>
+		<div class="loading"></div>
+
+		<div id="dialog_name" class="dialog-container dialog-alert" data-important="">
+			<div class="dialog-mask-layer"></div>
+			<div class="dialog" style="height: 260px; width: 400px;">
+				<div class="dialog-header">
+					<h1 class="dialog-title">请输入您的姓名</h1>
+				</div>
+				<div class="dialog-body ">
+					<div class="input-group">
+						<label>姓名: </label><input id="uname" placeholder="尊姓大名" maxlength="7">
+					</div>
+				</div>
+				<div class="dialog-footer"><button class="btn primary">确 认</button></div>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="js/jq.js"></script>
+		<script type="text/javascript" src="js/tools.js"></script>
+		<script src="//cdn.bootcss.com/socket.io/1.5.1/socket.io.min.js"></script>
+		<script type="text/javascript" src="js/websocket.js"></script>
+		<script type="text/javascript" src="js/puke.js"></script>
+	</body>
+
+</html>
